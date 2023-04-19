@@ -1,0 +1,12 @@
+html {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  background-color: aliceblue;
+}
+
+#__next {
+  height: 100%;
+}
