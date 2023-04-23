@@ -1,0 +1,13 @@
+.link-button {
+  fill: #FCFCFC;
+  stroke:lightslategrey;
+  stroke-width: 1px;
+}
+
+.link-button:hover {
+  fill: #F5F5F5;
+}
+
+.link-button:active {
+  fill: #DEDEDE;
+}

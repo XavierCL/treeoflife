@@ -1,4 +1,4 @@
-import { LifeNode } from "./LifeNode";
+import { LifeNode } from "./lifeNodes/LifeNode";
 import { LifeNodeData } from "@/domain/LifeNodeData";
 import { useSvgControls } from "./useSvgControls";
 
