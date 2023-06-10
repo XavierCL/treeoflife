@@ -1,22 +1,27 @@
+import { LifeNodeData } from "@/domain/LifeNodeData";
 import { useCallback, useState } from "react";
 
 type SvgControlsProps = {
   saveLifeNodePosition: (nodeId: string, x: number, y: number) => void;
+  storedLifeNodes: LifeNodeData[];
 };
 
-export const useSvgControls = ({
-  saveLifeNodePosition,
-}: SvgControlsProps): {
+type SvgControlsReturn = {
   svgProps: Partial<React.SVGProps<SVGSVGElement>>;
+  realTimeLifeNodes: LifeNodeData[];
   lifeNodeProps: {
     setSelected: (
       nodeId: string,
       oldPosition: { x: number; y: number },
       mousePosition: { x: number; y: number }
     ) => void;
-    selectedPosition?: { nodeId: string; x: number; y: number };
   };
-} => {
+};
+
+export const useSvgControls = ({
+  saveLifeNodePosition,
+  storedLifeNodes,
+}: SvgControlsProps): SvgControlsReturn => {
   const [startDrag, setStartDrag] = useState<{
     nodeId: string;
     oldPosition: { x: number; y: number };
@@ -46,6 +51,12 @@ export const useSvgControls = ({
     [setStartDrag, setEndDrag]
   );
 
+  const realTimeLifeNodes = storedLifeNodes.map((node) =>
+    node.nodeId === startDrag?.nodeId
+      ? { ...node, x: xPosition, y: yPosition }
+      : node
+  );
+
   return {
     svgProps: {
       onPointerMove: (event) => {
@@ -61,15 +72,9 @@ export const useSvgControls = ({
         setEndDrag(undefined);
       },
     },
+    realTimeLifeNodes,
     lifeNodeProps: {
       setSelected,
-      selectedPosition: startDrag
-        ? {
-            nodeId: startDrag.nodeId,
-            x: xPosition,
-            y: yPosition,
-          }
-        : undefined,
     },
   };
 };

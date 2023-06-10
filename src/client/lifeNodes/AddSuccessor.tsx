@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { lifeNodeContext } from "./LifeNodeContext";
-import { CenteredSvgText } from "../CenteredSvgText";
+import { CenteredSvgText } from "./CenteredSvgText";
 import styles from "./linkButton.module.css";
 
 export const AddSuccessor = () => {

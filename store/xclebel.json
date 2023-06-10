@@ -1,1 +1,1 @@
-[{"nodeId":"123","name":"Hello","x":639,"y":285},{"nodeId":"321","name":"world","x":330,"y":298}]
+[{"nodeId":"123","name":"Hello","x":333,"y":282,"dependencies":[]},{"nodeId":"321","name":"world","x":594,"y":724,"dependencies":["123"]}]

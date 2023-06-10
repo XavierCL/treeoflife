@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { LifeNodeData } from "@/domain/LifeNodeData";
 import { AddSuccessor } from "./AddSuccessor";
 import { LifeNodeContextType, lifeNodeContext } from "./LifeNodeContext";
-import { CenteredSvgText } from "../CenteredSvgText";
+import { CenteredSvgText } from "./CenteredSvgText";
 
 type LifeNodeProps = LifeNodeData & {
   setSelected: (
