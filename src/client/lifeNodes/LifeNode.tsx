@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useEffect, useRef, useState } from "react";
 import { LifeNodeData } from "@/domain/LifeNodeData";
 import { AddSuccessor } from "./AddSuccessor";
 import { LifeNodeContextType, lifeNodeContext } from "./LifeNodeContext";
 import { CenteredSvgText } from "./CenteredSvgText";
+
+export const LIFE_NODE_WIDTH = 104;
+export const LIFE_NODE_HEIGHT = 104;
 
 type LifeNodeProps = LifeNodeData & {
   setSelected: (
@@ -17,6 +20,7 @@ type LifeNodeProps = LifeNodeData & {
       y: number;
     }
   ) => void;
+  addNode: (parent: string, newPosition: { x: number; y: number }) => void;
 };
 
 const LifeNodeWithoutMemo = ({
@@ -25,6 +29,7 @@ const LifeNodeWithoutMemo = ({
   x,
   y,
   setSelected,
+  addNode,
 }: LifeNodeProps) => {
   const groupRef = useRef<SVGGElement>(null);
   const [lifeNodeState, setLifeNodeState] = useState<LifeNodeContextType>({});
@@ -37,6 +42,10 @@ const LifeNodeWithoutMemo = ({
     setLifeNodeState({ nodeWidth: groupBoundingBox.width });
   }, [name, groupRef, setLifeNodeState]);
 
+  const addChild = useCallback(() => {
+    addNode(nodeId, { x, y: y + 200 });
+  }, [addNode, nodeId, x, y]);
+
   return (
     <lifeNodeContext.Provider value={lifeNodeState}>
       <g
@@ -48,20 +57,20 @@ const LifeNodeWithoutMemo = ({
         style={{ userSelect: "none", cursor: "pointer" }}
       >
         <circle
-          cx={52}
-          cy={52}
-          r={50}
-          fillOpacity={0}
+          cx={LIFE_NODE_WIDTH / 2}
+          cy={LIFE_NODE_HEIGHT / 2}
+          r={LIFE_NODE_WIDTH / 2 - 2}
+          className="life-node"
           stroke="black"
           strokeWidth={2}
         />
         <CenteredSvgText
           parentWidth={lifeNodeState.nodeWidth}
-          textProps={{ y: 52 }}
+          textProps={{ y: LIFE_NODE_WIDTH / 2 }}
         >
           {name}
         </CenteredSvgText>
-        <AddSuccessor />
+        <AddSuccessor onClick={addChild} />
       </g>
     </lifeNodeContext.Provider>
   );

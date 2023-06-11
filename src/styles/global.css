@@ -7,6 +7,10 @@ body {
   background-color: aliceblue;
 }
 
+.life-node {
+  fill: aliceblue;
+}
+
 #__next {
   height: 100%;
 }

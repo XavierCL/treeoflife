@@ -7,11 +7,13 @@ import { LifeDependencySvgDefinitions } from "./lifeDependencies/LifeDependencyS
 type SvgBoardProps = {
   lifeNodes: LifeNodeData[];
   saveLifeNodePosition: (nodeId: string, x: number, y: number) => void;
+  addNode: (parent: string, newPosition: { x: number; y: number }) => void;
 };
 
 export const SvgBoard = ({
   lifeNodes,
   saveLifeNodePosition,
+  addNode,
 }: SvgBoardProps) => {
   const { svgProps, lifeNodeProps, realTimeLifeNodes } = useSvgControls({
     saveLifeNodePosition,
@@ -41,6 +43,7 @@ export const SvgBoard = ({
           key={lifeNode.nodeId}
           {...lifeNode}
           setSelected={lifeNodeProps.setSelected}
+          addNode={addNode}
         />
       ))}
     </svg>

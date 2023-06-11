@@ -3,7 +3,9 @@ import { lifeNodeContext } from "./LifeNodeContext";
 import { CenteredSvgText } from "./CenteredSvgText";
 import styles from "./linkButton.module.css";
 
-export const AddSuccessor = () => {
+type AddSuccessorProps = { onClick: () => void };
+
+export const AddSuccessor = ({ onClick }: AddSuccessorProps) => {
   const lifeNode = useContext(lifeNodeContext);
 
   return (
@@ -15,6 +17,7 @@ export const AddSuccessor = () => {
         width={20}
         height={20}
         shapeRendering="crispEdges"
+        onPointerUp={onClick}
       />
       <CenteredSvgText
         parentWidth={lifeNode.nodeWidth}
